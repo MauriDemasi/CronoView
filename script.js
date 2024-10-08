@@ -60,19 +60,19 @@ function renderizarTablaCronograma(cronograma, mes, anio) {
 
     // Limpiar la tabla antes de volver a llenarla
     cuerpoTabla.innerHTML = "";
-    filaDias.innerHTML = `<th class="border border-gray-300 p-2 sticky top-0 bg-gray-200">Empleado</th>`;
-    filaFechas.innerHTML = `<th class="border border-gray-300 p-2 sticky top-0 bg-gray-200"></th>`;
+    filaDias.innerHTML = `<th class="border-0"></th>`;
+    filaFechas.innerHTML = `<th class="border-0"></th>`;
 
     // Generar los días del mes en la primera fila del encabezado
     const diasDelMes = Object.keys(cronograma);
     diasDelMes.forEach(dia => {
         const thDia = document.createElement("th");
-        thDia.classList.add("border", "border-gray-300", "p-2");
+        thDia.classList.add("border", "border-gray-500", "p-2");
         thDia.textContent = new Date(anio, mes, dia).toLocaleDateString("es-ES", { weekday: 'short' });
         filaDias.appendChild(thDia);
 
         const thFecha = document.createElement("th");
-        thFecha.classList.add("border", "border-gray-300", "p-2");
+        thFecha.classList.add("border", "border-gray-500", "p-2");
         thFecha.textContent = dia;
         filaFechas.appendChild(thFecha);
     });
@@ -81,22 +81,22 @@ function renderizarTablaCronograma(cronograma, mes, anio) {
     for (let trabajador in cronograma[1]) {
         const fila = document.createElement("tr");
         const celdaTrabajador = document.createElement("td");
-        celdaTrabajador.classList.add("border", "border-gray-300", "p-2", "sticky", "left-0", "bg-gray-200");
+        celdaTrabajador.classList.add("border", "border-gray-500", "p-3", "sticky", "left-0", "bg-gray-200" , "text-xl");
         celdaTrabajador.textContent = trabajador;
         fila.appendChild(celdaTrabajador);
 
         diasDelMes.forEach(dia => {
             const celda = document.createElement("td");
-            celda.classList.add("border", "border-gray-300", "p-2", "text-center", "min-w-[60px]");
+            celda.classList.add("border", "border-gray-500", "p-3", "text-center", "min-w-[60px]", "text-base");
             celda.textContent = cronograma[dia][trabajador] || '-';
 
             // Aplicar colores según el turno
             if (cronograma[dia][trabajador] === "T") {
-                celda.classList.add("bg-green-200");
+                celda.classList.add("bg-gray-100");
             } else if (cronograma[dia][trabajador] === "F") {
-                celda.classList.add("bg-red-200");
+                celda.classList.add("bg-gray-900", "font-bold", "text-xl", "text-white");
             } else if (cronograma[dia][trabajador] === "M") {
-                celda.classList.add("bg-blue-200");
+                celda.classList.add("bg-gray-400");
             } else if (cronograma[dia][trabajador] === "N") {
                 celda.classList.add("bg-yellow-200");
             }
@@ -133,52 +133,73 @@ document.getElementById("btnSiguiente")?.addEventListener("click", () => {
 });
 
 // Action para generar un PDF
+// Action para generar un PDF
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     // Acceder a jsPDF de la manera correcta
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('landscape');
     const element = document.getElementById("imprimible");
+    
+    // Clonar el elemento
+    const clonedElement = element.cloneNode(true); // Clonamos el elemento original
 
+    // Opcional: puedes ocultar el clon o realizar ajustes en él si es necesario
+    // clonedElement.style.display = 'none'; // Por ejemplo, ocultarlo
 
+    // Añadir el clon al DOM para que pueda ser capturado por html2canvas
+    document.body.appendChild(clonedElement);
 
     html2canvas(element).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        
+
         // Dimensiones de A4 en posición horizontal (landscape)
         const pageWidth = 297; // Ancho en mm
         const pageHeight = 210; // Alto en mm
-        
+
         // Definir márgenes (en mm)
         const marginLeft = 10;
         const marginRight = 10;
         const marginTop = 10;
         const marginBottom = 10;
-        
+
         // Calcular el área imprimible
         const printableWidth = pageWidth - marginLeft - marginRight;
         const printableHeight = pageHeight - marginTop - marginBottom;
-        
+
         // Calcular las dimensiones de la imagen manteniendo la proporción
         let imgWidth = printableWidth;
         let imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
+
         // Si la altura calculada es mayor que el área imprimible, ajustar
         if (imgHeight > printableHeight) {
             imgHeight = printableHeight;
             imgWidth = (canvas.width * imgHeight) / canvas.height;
         }
-        
+
         // Crear un nuevo documento PDF en orientación horizontal
         const doc = new jsPDF({
             orientation: 'landscape',
             unit: 'mm',
             format: 'a4'
         });
-        
-        // Añadir la imagen al PDF
+
+        // Añadir la imagen original al PDF
         doc.addImage(imgData, 'PNG', marginLeft, marginTop, imgWidth, imgHeight);
-        
-        // Guardar el PDF
-        doc.save('cronograma.pdf');
+
+        // Capturar el clon del elemento para añadirlo al PDF
+        html2canvas(clonedElement).then((additionalCanvas) => {
+            const additionalImgData = additionalCanvas.toDataURL('image/png');
+            const additionalImgHeight = (additionalCanvas.height * imgWidth) / additionalCanvas.width;
+
+            // Calcular la posición Y para el clon
+            const yOffset = marginTop + imgHeight + 10; // Offset de 10 mm entre las dos imágenes
+            doc.addImage(additionalImgData, 'PNG', marginLeft, yOffset, imgWidth, additionalImgHeight);
+
+            // Guardar el PDF
+            doc.save('cronograma.pdf');
+
+            // Limpiar el DOM, eliminando el clon después de que se haya generado el PDF
+            document.body.removeChild(clonedElement);
+        });
     });
 });
+
