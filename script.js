@@ -230,3 +230,17 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     });
 });
 
+// Capturamos el botón "Ir" del formulario y añadimos la funcionalidad
+document.getElementById("ir").addEventListener("click", () => {
+  // Obtenemos el valor seleccionado del mes y año desde los inputs del formulario
+  const mesSeleccionado = parseInt(document.getElementById("mes").value) - 1; // Mes en 0 indexado
+  const anioSeleccionado = parseInt(document.getElementById("anio").value);
+
+  // Actualizamos los valores globales de mes y año
+  mesActual = mesSeleccionado;
+  anioActual = anioSeleccionado;
+
+  // Generamos y renderizamos el cronograma actualizado
+  const nuevoCronograma = generarCronogramaDinamico(mesActual, anioActual);
+  renderizarTablaCronograma(nuevoCronograma, mesActual, anioActual);
+});
