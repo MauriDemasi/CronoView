@@ -81,27 +81,55 @@ function renderizarTablaCronograma(cronograma, mes, anio) {
     for (let trabajador in cronograma[1]) {
         const fila = document.createElement("tr");
         const celdaTrabajador = document.createElement("td");
-        celdaTrabajador.classList.add("border", "border-gray-500", "p-3", "sticky", "left-0", "bg-gray-200" , "text-xl");
+        celdaTrabajador.classList.add("border-2", "border-black", "p-3", "sticky", "left-0", "bg-gray-200" , "text-xl");
         celdaTrabajador.textContent = trabajador;
         fila.appendChild(celdaTrabajador);
 
         diasDelMes.forEach(dia => {
-            const celda = document.createElement("td");
-            celda.classList.add("border", "border-gray-500", "p-3", "text-center", "min-w-[60px]", "text-base");
-            celda.textContent = cronograma[dia][trabajador] || '-';
+          const celda = document.createElement("td");
+          celda.classList.add(
+            "border-2",
+            "border-gray-900",
+            "p-3",
+            "text-center",
+            "text-base"
+          );
+          celda.textContent = cronograma[dia][trabajador] || "-";
 
-            // Aplicar colores según el turno
-            if (cronograma[dia][trabajador] === "T") {
-                celda.classList.add("bg-gray-100");
-            } else if (cronograma[dia][trabajador] === "F") {
-                celda.classList.add("bg-gray-900", "font-bold", "text-xl", "text-white");
-            } else if (cronograma[dia][trabajador] === "M") {
-                celda.classList.add("bg-gray-400");
-            } else if (cronograma[dia][trabajador] === "N") {
-                celda.classList.add("bg-yellow-200");
-            }
+          // Aplicar estilos según el turno, manteniendo los originales y añadiendo resaltados para blanco y negro
+          if (cronograma[dia][trabajador] === "T") {
+            celda.classList.add("bg-white", "border", "border-black"); // Fondo blanco y borde negro
+          } else if (cronograma[dia][trabajador] === "F") {
+            celda.classList.add(
+              "bg-gray-900",
+              "font-bold",
+              "text-3xl",
+              "text-white",
+              "border",
+              "border-dashed",
+              "border-black"
+            ); // Negrita, grande, texto blanco y borde punteado negro
+          } else if (cronograma[dia][trabajador] === "M") {
+            celda.classList.add(
+              "bg-yellow-400",
+              "border",
+              "border-solid",
+              "border-black",
+              "underline"
+            ); // Fondo amarillo, borde sólido negro y subrayado
+          } else if (cronograma[dia][trabajador] === "N") {
+            celda.classList.add(
+              "bg-slate-400",
+              "text-lg",
+              "italic",
+              "border",
+              "border-dotted",
+              "border-black",
+              "font-bold"
+            ); // Fondo gris, texto grande, itálica, borde punteado negro
+          }
 
-            fila.appendChild(celda);
+          fila.appendChild(celda);
         });
 
         cuerpoTabla.appendChild(fila);
@@ -132,7 +160,6 @@ document.getElementById("btnSiguiente")?.addEventListener("click", () => {
     renderizarTablaCronograma(nuevoCronograma, mesActual, anioActual);
 });
 
-// Action para generar un PDF
 // Action para generar un PDF
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     // Acceder a jsPDF de la manera correcta
@@ -191,7 +218,7 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
             const additionalImgHeight = (additionalCanvas.height * imgWidth) / additionalCanvas.width;
 
             // Calcular la posición Y para el clon
-            const yOffset = marginTop + imgHeight + 10; // Offset de 10 mm entre las dos imágenes
+            const yOffset = marginTop + imgHeight + 20; // Offset de 10 mm entre las dos imágenes
             doc.addImage(additionalImgData, 'PNG', marginLeft, yOffset, imgWidth, additionalImgHeight);
 
             // Guardar el PDF

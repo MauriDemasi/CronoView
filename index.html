@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cronograma de Turnos</title>
   <script defer src="script.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -16,18 +16,15 @@
     <div class="text-center mb-4">
       <h1 class="text-2xl font-bold mb-2" id="title">Cronograma de Turnos</h1>
       <h2 class="text-xl mb-2" id="mes-anio"></h2>
-  
     </div>
   
     <div class="overflow-x-auto">
       <table id="tabla-cronograma" class="min-w-full border border-gray-300 text-xs">
         <thead>
           <tr>
-
-            <th class="border border-gray-300 p-2 sticky top-0 bg-gray-300"></th>
+            <th class="border border-gray-300 px-2 sticky top-0 bg-gray-300"></th>
           </tr>
           <tr>
-
           </tr>
         </thead>
         <tbody id="cuerpo-tabla">
@@ -37,21 +34,24 @@
     </div>
   </div>
 
-
-  <div class="text-center mt-4">
-    <button class="bg-blue-500 text-white px-4 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
-      id="btnAnterior">
-      Mes Anterior
-    </button>
-    <button class="bg-red-500 text-white px-4 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
-      id="btnSiguiente">
-      Mes Siguiente
-    </button>
+  <div class="mt-6 w-full" style="max-width: calc(91% - 1rem);">
+    <div class="flex justify-between items-center">
+      <button class="bg-blue-500 text-white px-8 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
+        id="btnAnterior">
+        Mes Anterior
+      </button>
+      
+      <button id="btnGenerarPDF"
+        class="bg-green-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
+        Generar PDF
+      </button>
+      
+      <button class="bg-red-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
+        id="btnSiguiente">
+        Mes Siguiente
+      </button>
+    </div>
   </div>
-
-  <button id="btnGenerarPDF" class="bg-green-500 text-white p-2 m-2 rounded">
-    Generar PDF
-  </button>
 </body>
 
 </html>
