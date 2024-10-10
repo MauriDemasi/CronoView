@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cronograma de Turnos</title>
   <script defer src="script.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <link href="dist/tailwind.css" rel="stylesheet">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -17,7 +19,7 @@
       <h1 class="text-2xl font-bold mb-2" id="title">Cronograma de Turnos</h1>
       <h2 class="text-xl mb-2" id="mes-anio"></h2>
     </div>
-  
+
     <div class="overflow-x-auto">
       <table id="tabla-cronograma" class="min-w-full border border-gray-300 text-xs">
         <thead>
@@ -36,75 +38,76 @@
 
   <div class="mt-6 w-full" style="max-width: calc(91% - 1rem);">
     <div class="flex justify-between items-center">
-        <button class="bg-blue-500 text-white px-8 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
-            id="btnAnterior">
-            Mes Anterior
-        </button>
-      
-        <button id="btnGenerarPDF"
-            class="bg-green-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
-            Generar PDF
-        </button>
-      
-        <button class="bg-red-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
-            id="btnSiguiente">
-            Mes Siguiente
-        </button>
+      <button class="bg-blue-500 text-white px-8 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
+        id="btnAnterior">
+        Mes Anterior
+      </button>
+
+      <button id="btnGenerarPDF"
+        class="bg-green-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
+        Generar PDF
+      </button>
+
+      <button class="bg-red-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
+        id="btnSiguiente">
+        Mes Siguiente
+      </button>
     </div>
 
-    
+
     <!-- Miniformulario centrado debajo de los botones -->
-<div class="mt-4 justify-center">
-  <h2 class="text-center mt-2">Seleccionar un mes y año específico</h2>
-  <form class="mt-2 flex flex-col items-center space-y-4">
-    <div class="flex space-x-4">
-      <div>
-        <label for="mes" class="block text-sm font-medium text-gray-700 text-center">Mes</label>
-        <select id="mes" name="mes"
-          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          <option value="1">Enero</option>
-          <option value="2">Febrero</option>
-          <option value="3">Marzo</option>
-          <option value="4">Abril</option>
-          <option value="5">Mayo</option>
-          <option value="6">Junio</option>
-          <option value="7">Julio</option>
-          <option value="8">Agosto</option>
-          <option value="9">Septiembre</option>
-          <option value="10">Octubre</option>
-          <option value="11">Noviembre</option>
-          <option value="12">Diciembre</option>
-        </select>
-      </div>
-  
-      <div>
-        <label for="anio" class="block text-sm font-medium text-gray-700 text-center">Año</label>
-        <input type="number" id="anio" name="anio" min="1900" max="2100" value="2023"
-          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-      </div>
-    </div>
-    
-    <!-- Botón centrado debajo -->
-    <div>
-      <input type="button" id="ir" value="Ver Cronograma"
-        class="mt-1 block py-2 px-6 mb-4 border border-gray-600 bg-green-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-    </div>
-  </form>
-</div>
+    <div class="mt-4 justify-center">
+      <h2 class="text-center mt-2">Seleccionar un mes y año específico</h2>
+      <form class="mt-2 flex flex-col items-center space-y-4" id="form-date">
+        <div class="flex space-x-4">
+          <div>
+            <label for="mes" class="block text-sm font-medium text-gray-700 text-center">Mes</label>
+            <select id="mes" name="mes"
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <option value="1">Enero</option>
+              <option value="2">Febrero</option>
+              <option value="3">Marzo</option>
+              <option value="4">Abril</option>
+              <option value="5">Mayo</option>
+              <option value="6">Junio</option>
+              <option value="7">Julio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
 
-</div>
+          <div>
+            <label for="anio" class="block text-sm font-medium text-gray-700 text-center">Año</label>
+            <input type="number" id="anio" name="anio" min="1900" max="2100" value="2023"
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
 
+        <!-- Botón centrado debajo -->
+        <div>
+          <input type="button" id="ir" value="Ver Cronograma"
+            class="mt-1 block py-2 px-6 mb-4 border border-gray-600 bg-green-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
 </body>
 
 
 
 <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-300">
-  <div class="w-full mx-auto max-w-screen-xl p-2 md:flex md:items-center md:justify-between">
+  <div class="w-full mx-auto max-w-screen-xl p- md:flex md:items-center md:justify-between">
     <span class="text-sm text-gray-800 sm:text-center dark:text-gray-500 m-4">©2024 Solusoft
     </span>
 
   </div>
 </footer>
+
 
 
 </html>
