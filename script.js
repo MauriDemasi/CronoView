@@ -105,8 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "p-3",
         "sticky",
         "left-0",
-        "bg-gray-200",
-        "text-xl"
+        //"bg-gray-200",
+        "text-xl",
+        "text-bold"
       );
       celdaTrabajador.textContent = trabajador;
       fila.appendChild(celdaTrabajador);
@@ -118,42 +119,42 @@ document.addEventListener("DOMContentLoaded", function () {
           "border-gray-900",
           "p-3",
           "text-center",
-          "text-base"
+          "text-2xl"
         );
         celda.textContent = cronograma[dia][trabajador] || "-";
 
         // Aplicar estilos según el turno, manteniendo los originales y añadiendo resaltados para blanco y negro
-        if (cronograma[dia][trabajador] === "T") {
-          celda.classList.add("bg-white", "border", "border-black"); // Fondo blanco y borde negro
-        } else if (cronograma[dia][trabajador] === "F") {
-          celda.classList.add(
-            "bg-gray-900",
-            "font-bold",
-            "text-3xl",
-            "text-white",
-            "border",
-            "border-dashed",
-            "border-black"
-          ); // Negrita, grande, texto blanco y borde punteado negro
-        } else if (cronograma[dia][trabajador] === "M") {
-          celda.classList.add(
-            "bg-yellow-400",
-            "border",
-            "border-solid",
-            "border-black",
-            "underline"
-          ); // Fondo amarillo, borde sólido negro y subrayado
-        } else if (cronograma[dia][trabajador] === "N") {
-          celda.classList.add(
-            "bg-slate-400",
-            "text-lg",
-            "italic",
-            "border",
-            "border-dotted",
-            "border-black",
-            "font-bold"
-          ); // Fondo gris, texto grande, itálica, borde punteado negro
-        }
+        // if (cronograma[dia][trabajador] === "T") {
+        //   celda.classList.add("bg-white", "border", "border-black"); // Fondo blanco y borde negro
+        // } else if (cronograma[dia][trabajador] === "F") {
+        //   celda.classList.add(
+        //     //"bg-gray-900",
+        //     "font-bold",
+        //     "text-3xl",
+        //     //"text-white",
+        //     "border",
+        //     "border-dashed",
+        //     "border-black"
+        //   ); // Negrita, grande, texto blanco y borde punteado negro
+        // } else if (cronograma[dia][trabajador] === "M") {
+        //   celda.classList.add(
+        //     // "bg-yellow-400",
+        //     // "border",
+        //     // "border-solid",
+        //     // "border-black",
+        //     // "underline"
+        //   ); // Fondo amarillo, borde sólido negro y subrayado
+        // } else if (cronograma[dia][trabajador] === "N") {
+        //   celda.classList.add(
+        //     // "bg-slate-400",
+        //     // "text-lg",
+        //     // "italic",
+        //     // "border",
+        //     // "border-dotted",
+        //     // "border-black",
+        //     // "font-bold"
+        //   ); // Fondo gris, texto grande, itálica, borde punteado negro
+        // }
 
         fila.appendChild(celda);
       });
