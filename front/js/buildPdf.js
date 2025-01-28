@@ -5,14 +5,14 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
   // Función para crear una tabla de quincena
   function crearTablaQuincena(element, inicio, fin, mostrarNombres = true) {
     const tabla = document.createElement("table");
-    tabla.style.width = "auto"; // Cambiar de 100% a auto para evitar redimensionado
+    tabla.style.width = "auto%"; 
     tabla.style.borderCollapse = "collapse";
     tabla.style.marginBottom = "20px";
   
     // Obtener el ancho original de las columnas desde la tabla principal
     const anchoColumnas = Array.from(
       element.querySelector("thead tr:first-child").cells,
-    ).map((cell) => (cell.offsetWidth)-10);
+    ).map((cell) => (cell.offsetWidth)-15);
   
     // Clonar las filas del encabezado
     const headerOriginal = element.querySelector("thead");
@@ -90,6 +90,7 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
   const contenedor = document.createElement('div');
   contenedor.style.margin = '0';
   contenedor.style.padding = '0';
+  contenedor.style.pageBreakAfter = 'always';
 
   
   // Obtener el título del mes y año
@@ -125,11 +126,17 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
   });
 
   // Generar el PDF
-  html2canvas(contenedor).then((canvas) => {
+  html2canvas(contenedor, {
+    scale: 2,
+    useCORS: true,
+    logging: false,
+    allowTaint: true,
+  
+  }).then((canvas) => {
     const imgData = canvas.toDataURL("image/png");
     const pageWidth = 297; // A4 landscape
     const pageHeight = 210;
-    const margin = 25;
+    const margin = 2 ;
 
     const printableWidth = pageWidth - margin;
     const printableHeight = pageHeight - margin;
@@ -149,8 +156,8 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     });
 
     // Centrar la imagen en la página
-    const xOffset = (pageWidth - imgWidth) / 2;
-    const yOffset = (pageHeight - imgHeight) / 2;
+    const xOffset = 10
+    const yOffset = (pageHeight - imgHeight);
 
     doc.addImage(imgData, "PNG", xOffset, yOffset, imgWidth, imgHeight);
 

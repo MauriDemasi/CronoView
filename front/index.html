@@ -41,23 +41,32 @@
     </div>
   </div>
 
-  <div class="mt-6 w-full max-w-4xl">
-    <div class="flex flex-wrap justify-between items-center gap-2">
-      <button class="bg-blue-500 text-white px-4 sm:px-6 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
-        id="btnAnterior">
-        Mes Anterior
-      </button>
-
-      <button id="btnGenerarPDF"
-        class="bg-green-500 text-white px-4 sm:px-6 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
-        Generar PDF
-      </button>
-
-      <button class="bg-red-500 text-white px-4 sm:px-6 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
-        id="btnSiguiente">
-        Mes Siguiente
-      </button>
-    </div>
+  <div class="flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 mt-4">
+    <!-- Botón Mes Anterior -->
+    <button
+      id="btnAnterior"
+      class="bg-blue-500 text-white px-4 sm:px-6 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow order-1 sm:order-1">
+      Mes Anterior
+    </button>
+  
+    <!-- Botón Generar PDF -->
+    <button
+      id="btnGenerarPDF"
+      class="bg-green-500 text-white px-4 sm:px-6 py-2 order-3 sm:order-2 w-full sm:w-auto text-center hidden lg:block">
+      Generar PDF
+    </button>
+  
+    <!-- Botón Mes Siguiente -->
+    <button
+      id="btnSiguiente"
+      class="bg-red-500 text-white px-4 sm:px-6 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow order-2 sm:order-3">
+      Mes Siguiente
+    </button>
+  </div>
+  
+  
+  
+    
 
     <div class="mt-4">
       <h2 class="text-center mt-2">Seleccionar un mes y año específico</h2>
@@ -97,10 +106,8 @@
     </div>
   </div>
 
-  <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-300 w-full max-w-4xl mt-8">
-    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-      <span class="text-sm text-gray-800 sm:text-center dark:text-gray-500">©2024 Solusoft</span>
-    </div>
+  <footer class="bg-gray-800 text-white py-4 mt-8 w-full">
+    <p class="text-sm text-center">&copy; 2024 Solusoft. Todos los derechos reservados.</p>
   </footer>
 
   <script src="./js/buildPdf.js"></script>
