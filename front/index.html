@@ -5,16 +5,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cronograma de Turnos</title>
-  <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @media (max-width: 640px) {
+      #tabla-cronograma {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
 </head>
 
-<body class="flex flex-col items-center p-5 rounded-md border bg-gray-300">
-  <div id="imprimible">
+<body class="flex flex-col items-center p-5 rounded-md border bg-gray-300 min-h-screen">
+  <div id="imprimible" class="w-full max-w-full overflow-x-auto">
     <div class="text-center mb-4">
       <h1 class="text-2xl font-bold mb-2" id="title">Cronograma de Turnos</h1>
       <h2 class="text-xl mb-2" id="mes-anio"></h2>
@@ -24,9 +28,10 @@
       <table id="tabla-cronograma" class="min-w-full border text-xs">
         <thead>
           <tr>
-            <th class="border  px-1 sticky top-0"></th>
+            <th class="border px-1 sticky top-0 left-0 z-10 bg-white"></th>
           </tr>
           <tr>
+            <th class="border px-1 sticky top-0 left-0 z-10 bg-white"></th>
           </tr>
         </thead>
         <tbody id="cuerpo-tabla">
@@ -36,30 +41,28 @@
     </div>
   </div>
 
-  <div class="mt-6 w-full" style="max-width: calc(91% - 1rem);">
-    <div class="flex justify-between items-center">
-      <button class="bg-blue-500 text-white px-8 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
+  <div class="mt-6 w-full max-w-4xl">
+    <div class="flex flex-wrap justify-between items-center gap-2">
+      <button class="bg-blue-500 text-white px-4 sm:px-8 py-2 rounded-tl-full rounded-bl-full clip-path-right-arrow"
         id="btnAnterior">
         Mes Anterior
       </button>
 
       <button id="btnGenerarPDF"
-        class="bg-green-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
+        class="bg-green-500 text-white px-4 sm:px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow rounded-tl-full rounded-bl-full clip-path-right-arrow">
         Generar PDF
       </button>
 
-      <button class="bg-red-500 text-white px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
+      <button class="bg-red-500 text-white px-4 sm:px-8 py-2 rounded-tr-full rounded-br-full clip-path-left-arrow"
         id="btnSiguiente">
         Mes Siguiente
       </button>
     </div>
 
-
-    <!-- Miniformulario centrado debajo de los botones -->
-    <div class="mt-4 justify-center">
+    <div class="mt-4">
       <h2 class="text-center mt-2">Seleccionar un mes y año específico</h2>
       <form class="mt-2 flex flex-col items-center space-y-4" id="form-date">
-        <div class="flex space-x-4">
+        <div class="flex flex-wrap justify-center gap-4">
           <div>
             <label for="mes" class="block text-sm font-medium text-gray-700 text-center">Mes</label>
             <select id="mes" name="mes"
@@ -86,31 +89,23 @@
           </div>
         </div>
 
-        <!-- Botón centrado debajo -->
         <div>
           <input type="button" id="ir" value="Ver Cronograma"
-            class="mt-1 block py-2 px-6 mb-4 border border-gray-600 bg-green-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            class="mt-1 block py-2 px-6 mb-4 border border-gray-600 bg-green-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer hover:bg-green-500">
         </div>
       </form>
     </div>
-
   </div>
-  <script src="script.js"></script>
+
+  <footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-300 w-full max-w-4xl mt-8">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-gray-800 sm:text-center dark:text-gray-500">©2024 Solusoft</span>
+    </div>
+  </footer>
+
   <script src="./js/buildPdf.js"></script>
-  <script src="./js/render.js"></script>
   <script src="./js/crono.js"></script>
+  <script src="./js/render.js"></script>
 </body>
-
-
-
-<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-300">
-  <div class="w-full mx-auto max-w-screen-xl p- md:flex md:items-center md:justify-between">
-    <span class="text-sm text-gray-800 sm:text-center dark:text-gray-500 m-4">©2024 Solusoft
-    </span>
-
-  </div>
-</footer>
-
-
 
 </html>

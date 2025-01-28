@@ -129,7 +129,7 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     const imgData = canvas.toDataURL("image/png");
     const pageWidth = 297; // A4 landscape
     const pageHeight = 210;
-    const margin = -5;
+    const margin = 25;
 
     const printableWidth = pageWidth - margin;
     const printableHeight = pageHeight - margin;
